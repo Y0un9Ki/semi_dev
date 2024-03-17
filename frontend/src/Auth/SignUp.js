@@ -25,7 +25,21 @@ const SignIn = () => {
     });
   };
 
-  console.log(inputValue);
+  const submitHandler = () => {
+    if (!userID || !userPW || !userPWCheck || !userLOC) return;
+    fetch("localhost:8000", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: userID,
+        password1: userPW,
+        password2: userPWCheck,
+        location: userLOC,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  };
 
   return (
     <SignInPage>
@@ -76,12 +90,14 @@ const SignIn = () => {
               onChange={inputHandler}
             />
           </InputField>
-          <SignInButton variant="contained" size="large">
+          <SignUpButton
+            variant="contained"
+            size="large"
+            onClick={submitHandler}
+          >
             SIGNUP
-          </SignInButton>
-          <SignUpButton onClick={() => navigate("/signin")}>
-            SIGNIN
           </SignUpButton>
+          <GotoSignIn onClick={() => navigate("/signin")}>SIGNIN</GotoSignIn>
         </FormField>
       </Container>
     </SignInPage>
@@ -137,7 +153,7 @@ const TextInput = muiStyled(TextField)(() => ({
   },
 }));
 
-const SignInButton = muiStyled(Button)(() => ({
+const SignUpButton = muiStyled(Button)(() => ({
   background: "#786d5f",
   color: "black",
   "&: hover": {
@@ -146,7 +162,7 @@ const SignInButton = muiStyled(Button)(() => ({
   },
 }));
 
-const SignUpButton = styled.button`
+const GotoSignIn = styled.button`
   margin: 0 auto;
   width: 80px;
   height: 30px;
