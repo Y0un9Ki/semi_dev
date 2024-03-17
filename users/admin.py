@@ -8,12 +8,12 @@ class CustomUserAdmin(UserAdmin):
     fieldsets = [
         (None, {'fields': ('username', 'password')}),
         ('개인정보', {'fields': ('first_name', 'last_name', 'email')}),
-        ('추가필드', {'fields': ('location',)}),
+        ('사용자위치', {'fields': ('location',)}),
         (
             '권한',
                 {
                     'fields': (
-                        'is_activate',
+                        'is_active',
                         'is_staff',
                         'is_superuser',
                     )
