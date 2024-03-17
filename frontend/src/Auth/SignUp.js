@@ -9,11 +9,12 @@ const SignIn = () => {
   const [inputValue, setInputValue] = useState({
     userID: "",
     userPW: "",
+    userPWCheck: "",
     userLOC: "",
   });
   const navigate = useNavigate();
 
-  const { userID, userPW, userLOC } = inputValue;
+  const { userID, userPW, userPWCheck, userLOC } = inputValue;
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -53,6 +54,16 @@ const SignIn = () => {
               type="password"
               fullWidth
               value={userPW}
+              onChange={inputHandler}
+            />
+            <TextInput
+              id="standard-basic"
+              name="userPWCheck"
+              label="PassWord check"
+              variant="standard"
+              type="password"
+              fullWidth
+              value={userPWCheck}
               onChange={inputHandler}
             />
             <TextInput
@@ -104,7 +115,7 @@ const Container = styled.div`
 
 const FormField = styled.div`
   width: 240px;
-  height: 280px;
+  height: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -114,7 +125,7 @@ const InputField = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 120px;
+  height: 150px;
 `;
 
 const TextInput = muiStyled(TextField)(() => ({
