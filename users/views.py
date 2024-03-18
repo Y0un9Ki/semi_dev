@@ -40,33 +40,26 @@ def signup_view(request):
     if request.method =='POST':
         form = SignupForm(data = request.POST)
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password1 = form.cleaned_data['password1']
-            password2 = form.cleaned_data['password2']
-            location = form.cleaned_data['location']
+            user = form.save()
             
-        if password1 != password2:
-            form.add_error('password2', '비밀번호가 서로 다릅니다.')
+        # if password1 != password2:
+        #     form.add_error('password2', '비밀번호가 서로 다릅니다.')
             
-        if User.objects.filter(username=username).exists():
-            form.add_error('username', '입력한 id는 이미 사용중입니다.')
+        # if User.objects.filter(username=username).exists():
+        #     form.add_error('username', '입력한 id는 이미 사용중입니다.')
             
-        if form.errors:
-            context={'form':form}
-            return render(request, 'users/signup.html', context)
+        # if form.errors:
+        #     context={'form':form}
+        #     return render(request, 'users/signup.html', context)
+        # 우리가 form class 안에 함수로 만들어서 검증을 form에서 할 수 있게 만들어 줬다.
         
-        else:
-            user = User.objects.create_user(
-                username=username,
-                password=password1,
-                location=location,
-            )
             login(request, user)
             return redirect('/posts/feeds/')
         
     else:
         form = SignupForm()
-        context = {'form':form}
-        return render(request, 'users/signup.html', context)   
+        
+    context = {'form':form}
+    return render(request, 'users/signup.html', context)   
     
     

@@ -27,7 +27,7 @@ const SignIn = () => {
 
   const submitHandler = () => {
     if (!userID || !userPW || !userPWCheck || !userLOC) return;
-    fetch("/api/users/signup", {
+    fetch("/users/signup/", {
       //signup 요청주소 기입
       method: "POST",
       headers: { "Content-Type": "application/json" },
